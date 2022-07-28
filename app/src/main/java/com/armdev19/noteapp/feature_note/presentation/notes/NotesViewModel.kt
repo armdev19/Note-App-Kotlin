@@ -42,13 +42,13 @@ class NotesViewModel @Inject constructor(
             }
             is NotesEvent.DeleteNote -> {
                 viewModelScope.launch {
-                    noteUseCases.deleteNoteUseCase(note = event.note)
+                    noteUseCases.deleteNote(note = event.note)
                     recentlyDeletedNote = event.note
                 }
             }
             is NotesEvent.RestoreNote -> {
                 viewModelScope.launch {
-                    noteUseCases.addNoteUseCase(note = recentlyDeletedNote ?: return@launch)
+                    noteUseCases.addNote(note = recentlyDeletedNote ?: return@launch)
                     recentlyDeletedNote = null
                 }
             }
@@ -62,7 +62,7 @@ class NotesViewModel @Inject constructor(
 
     private fun getNotes(noteOrder: NoteOrder) {
         getNotesJob?.cancel()
-        getNotesJob = noteUseCases.getNotesUseCase(noteOrder = noteOrder)
+        getNotesJob = noteUseCases.getNotes(noteOrder = noteOrder)
             .onEach { notes ->
                 _state.value = state.value.copy(
                     notes = notes,
