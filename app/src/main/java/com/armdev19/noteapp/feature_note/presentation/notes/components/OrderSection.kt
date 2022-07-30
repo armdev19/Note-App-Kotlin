@@ -17,7 +17,7 @@ fun OrderSection(
         modifier = modifier
     ) {
         Row(
-            modifier = modifier.fillMaxHeight()
+            modifier = modifier.fillMaxWidth()
         ) {
             DefaultRadioButton(text = "Title",
                 selected = noteOrder is NoteOrder.Title,
